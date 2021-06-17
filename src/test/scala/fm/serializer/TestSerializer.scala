@@ -15,6 +15,7 @@
  */
 package fm.serializer
 
+import fm.common.Logging
 import fm.common.{IP, ImmutableArray, ImmutableDate, UUID}
 import fm.serializer.validation.{Validation, ValidationError, ValidationOptions, ValidationResult}
 import java.io.File
@@ -517,6 +518,7 @@ trait TestSerializer[BYTES] extends FunSuite with Matchers with AppendedClues {
   test("Foo") {
     val foo: Foo = Foo()
     val bytes: BYTES = serialize(foo)
+    logger.error(s"Foo: ${fm.serializer.yaml.YAML.toYAML(foo).slice(0,300)}")
     val foo2: Foo = deserialize[Foo](bytes)
 
     // TestMinimalJSON doesn't play well with this
